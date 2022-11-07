@@ -1,5 +1,7 @@
 import React from "react";
 
-function ProductMain() {}
+function ProductMain() {
+  return <div>Items to be added</div>;
+}
 
 export default ProductMain;
