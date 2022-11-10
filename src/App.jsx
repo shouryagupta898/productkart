@@ -6,7 +6,7 @@ import ProductDetail from "./ProductDetail";
 
 function App() {
   return (
-    <div className="bg-gray-200 h-screen ">
+    <div className="bg-yellow-200 h-screen overflow-scroll">
       <Navbar />
 
       <Routes>

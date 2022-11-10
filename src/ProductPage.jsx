@@ -6,7 +6,6 @@ function ProductPage({ products }) {
 
   return (
     <div className="grid grid-cols-3">
-      return
       {products.map(function (item) {
         return <ProductMain key={item.title} {...item} />;
       })}

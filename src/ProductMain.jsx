@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 function ProductMain({ thumbnail, category, title, price, rating, stock, id }) {
   return (
-    <div>
-      <img src={thumbnail} />
+    <div className="ml-20">
+      <img className="w-60 h-40 pt-4" src={thumbnail} />
       <div>
         <h3 className="text-gray-300">{category}</h3>
         <h2 className="text-blue-400">{title}</h2>

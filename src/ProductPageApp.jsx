@@ -1,24 +1,22 @@
-// import { data } from "autoprefixer";
 import React, { useEffect, useState } from "react";
-// import ProductMain from "./ProductMain";
 import { getProductList } from "./Api";
 import ProductPage from "./ProductPage";
+import Loading from "./Loading";
 
 function ProductPageApp() {
   const [productList, setProductList] = useState([]);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("default");
-  useEffect(
-    function () {
-      const promise = getProductList(query);
-      console.log("product aa gya", getProductList);
-      promise.then(function (products) {
-        console.log(products);
-        setProductList(products);
-      });
-    },
-    [query]
-  );
+  const [loading, setLoading] = useState(true);
+  useEffect(function () {
+    const promise = getProductList();
+    // console.log("product aa gya", getProductList);
+    promise.then(function (products) {
+      // console.log(products);
+      setProductList(products);
+      setLoading(false);
+    });
+  }, []);
 
   let data = productList.filter(function (item) {
     const lowerCaseTitle = item.title.toLowerCase();
@@ -26,8 +24,26 @@ function ProductPageApp() {
     return lowerCaseTitle.indexOf(lowerCaseQuery) != -1;
   });
 
+  // if (sort == lowToHigh) {
+  //   data.sort(function (x, y) {
+  //     return x.price - y.price;
+  //   });
+  // }
+
   function changeQuery(event) {
     setQuery(event.target.value);
+  }
+
+  function changeSort(event) {
+    setSort(event.target.value);
+  }
+
+  if (loading) {
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
 
   return (
@@ -39,13 +55,19 @@ function ProductPageApp() {
           className="border border-blue-700 m-2 p-2 rounded-md"
           placeholder="search"
         />
-        <select className="border border-green-400 bg-cyan-300 m-2 p-2 rounded-md">
-          <option>sort default</option>
-          <option>sort by price:high to low</option>
-          <option>set by price:low to high</option>
+        <select
+          onChange={changeSort}
+          value={sort}
+          className="border border-green-400 bg-cyan-300 m-2 p-2 rounded-md"
+        >
+          <option value="default">sort default</option>
+          <option value="highToLow">sort by price:high to low</option>
+          <option value="lowToHigh">set by price:low to high</option>
         </select>
       </div>
-      <ProductPage products={data} />
+      {/* <ProductPage products={data} /> */}
+      {data.length > 0 && <ProductPage products={data} />}
+      {data.length == 0 && <div>Not Found</div>}
     </div>
   );
 }
