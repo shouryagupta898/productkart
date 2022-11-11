@@ -7,38 +7,50 @@ import {
   BsFillArrowRightCircleFill,
 } from "react-icons/bs";
 import { RiArrowGoBackFill } from "react-icons/ri";
-function ProductDetail() {
+import NotFoundPage from "./NotFoundPage";
+function ProductDetail({ onAddToCart }) {
   const params = useParams();
   const id = +params.id;
   //   console.log("id is ", id);
   const [productData, setProductData] = useState();
-  const [count, setCount] = useState("1");
+  const [count, setCount] = useState(1);
   const [cart, setCart] = useState();
+  const [loading, setLoading] = useState(true);
   useEffect(
     function () {
       const promise = getProductData(id);
-      promise.then(function (data) {
-        //   console.log("data is", data);
-        setProductData(data);
-      });
+      promise
+        .then(function (data) {
+          //   console.log("data is", data);
+          setProductData(data);
+          setLoading(false);
+        })
+        .catch(function () {
+          setLoading(false);
+        });
     },
     [id]
   );
 
+  if (loading) {
+    return <Loading />;
+  }
+
   if (!productData) {
-    return (
-      <div>
-        <Loading />
-      </div>
-    );
+    return <NotFoundPage />;
   }
 
   function changeCount(event) {
-    setCount(event.target.value);
+    if (event.target.value < 1) {
+      setCount(1);
+    } else {
+      setCount(+event.target.value);
+    }
   }
 
   function changeCart() {
     setCart(count);
+    onAddToCart(id, count);
   }
   return (
     <div>
@@ -48,8 +60,11 @@ function ProductDetail() {
         </Link>
       </div>
       <div className="flex justify-center">
-        <div className="flex justify-center mt-8 bg-white max-w-3xl h-80">
-          <img className="p-2 w-full h-full" src={productData.thumbnail} />
+        <div className="flex justify-center mt-8 bg-white max-w-5xl h-80">
+          <img
+            className="p-2 w-96 h-80 aspect-square"
+            src={productData.thumbnail}
+          />
           <div className="flex flex-col items-center">
             <h2 className="text-gray-300">Brand: {productData.brand}</h2>
             <h1 className="text-cyan-500">Title: {productData.title}</h1>
@@ -68,7 +83,7 @@ function ProductDetail() {
               className="border border-black bg-red-300 rounded-md px-2 py-1 mt-2 "
               onClick={changeCart}
             >
-              Add TO Cart
+              Add To Cart
             </button>
             <span className="block">{cart} items added</span>
           </div>

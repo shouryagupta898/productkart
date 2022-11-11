@@ -4,7 +4,7 @@ import { VscLoading } from "react-icons/vsc";
 
 function Loading() {
   return (
-    <div className="animate-spin">
+    <div className="flex justify-center animate-spin text-3xl mt-64 ">
       <VscLoading />
     </div>
   );
