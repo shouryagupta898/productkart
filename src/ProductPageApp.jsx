@@ -24,17 +24,22 @@ function ProductPageApp() {
     return lowerCaseTitle.indexOf(lowerCaseQuery) != -1;
   });
 
-  // if (sort == lowToHigh) {
-  //   data.sort(function (x, y) {
-  //     return x.price - y.price;
-  //   });
-  // }
+  if (sort == "highToLow") {
+    data.sort(function (x, y) {
+      return y.price - x.price;
+    });
+  } else if (sort == "lowToHigh") {
+    data.sort(function (x, y) {
+      return x.price - y.price;
+    });
+  }
 
   function changeQuery(event) {
     setQuery(event.target.value);
   }
 
   function changeSort(event) {
+    // console.log(event.target.value);
     setSort(event.target.value);
   }
 
@@ -60,9 +65,9 @@ function ProductPageApp() {
           value={sort}
           className="border border-green-400 bg-cyan-300 m-2 p-2 rounded-md"
         >
-          <option value="default">sort default</option>
-          <option value="highToLow">sort by price:high to low</option>
-          <option value="lowToHigh">set by price:low to high</option>
+          <option value="default">Sort default</option>
+          <option value="highToLow">Sort by price: high to low</option>
+          <option value="lowToHigh">Sort by price: low to high</option>
         </select>
       </div>
       {/* <ProductPage products={data} /> */}
