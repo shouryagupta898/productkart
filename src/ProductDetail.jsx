@@ -14,7 +14,7 @@ function ProductDetail({ onAddToCart }) {
   //   console.log("id is ", id);
   const [productData, setProductData] = useState();
   const [count, setCount] = useState(1);
-  const [cart, setCart] = useState();
+  const [cartInfo, setCartInfo] = useState();
   const [loading, setLoading] = useState(true);
   useEffect(
     function () {
@@ -49,7 +49,7 @@ function ProductDetail({ onAddToCart }) {
   }
 
   function changeCart() {
-    setCart(count);
+    setCartInfo(count);
     onAddToCart(id, count);
   }
   return (
@@ -85,7 +85,7 @@ function ProductDetail({ onAddToCart }) {
             >
               Add To Cart
             </button>
-            <span className="block">{cart} items added</span>
+            <span className="block">{cartInfo} items added</span>
           </div>
         </div>
       </div>

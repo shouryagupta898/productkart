@@ -6,13 +6,19 @@ import ProductDetail from "./ProductDetail";
 import NotFoundPage from "./NotFoundPage";
 
 function App() {
-  const [totalCartItem, setTotalCartItem] = useState({});
-  console.log("totalCartItem is ", totalCartItem);
+  const savedDataString = localStorage.getItem("savedCart") || "{}";
+  const savedData = JSON.parse(savedDataString);
+
+  const [totalCartItem, setTotalCartItem] = useState(savedData);
+  // console.log("totalCartItem is ", totalCartItem);
   function changeAddToCart(productId, count) {
     console.log("api me ", "productId:", productId, "count:", count);
     const oldCount = totalCartItem[productId] || 0;
-    console.log(oldCount, productId);
-    setTotalCartItem({ ...totalCartItem, [productId]: oldCount + count });
+    // console.log(oldCount, productId);
+    const newCart = { ...totalCartItem, [productId]: oldCount + count };
+    setTotalCartItem(newCart);
+    const totalCartItemStringify = JSON.stringify(newCart);
+    localStorage.setItem("savedCart", totalCartItemStringify);
   }
 
   const totalCount = Object.keys(totalCartItem).reduce(function (
