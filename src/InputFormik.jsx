@@ -1,6 +1,11 @@
+import { useField } from "formik";
 import React from "react";
 
-function Input({ label, id, touched, error, className, ...rest }) {
+function InputFormik({ label, id, name, className, ...rest }) {
+  const details = useField(name);
+  const [data, meta] = details;
+  const { value, onBlur, onChange } = data;
+  const { error, touched } = meta;
   let borderClass = " border-gray-900 focus:border-blue-400";
   if (error) {
     borderClass = "border-red-500";
@@ -12,6 +17,10 @@ function Input({ label, id, touched, error, className, ...rest }) {
       </label>
       <input
         id={id}
+        name={name}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
         {...rest}
         className={
           "px-4 py-1 border border-gray-900 rounded-md " +
@@ -25,4 +34,4 @@ function Input({ label, id, touched, error, className, ...rest }) {
   );
 }
 
-export default Input;
+export default InputFormik;
