@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 function ProductMain({ thumbnail, category, title, price, rating, stock, id }) {
   return (
     <div className="ml-20">
-      <img className="w-60 h-40 pt-4" src={thumbnail} />
+      <Link to={"/products/" + id}>
+        <img className="w-60 h-40 pt-4" src={thumbnail} />
+      </Link>
       <div>
         <h3 className="text-cyan-500">Category: {category}</h3>
         <h2 className="text-blue-400">Title: {title}</h2>

@@ -1,5 +1,6 @@
 import React from "react";
 import { BsCart4 } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 function Navbar({ productCount }) {
   return (
@@ -13,7 +14,9 @@ function Navbar({ productCount }) {
           <span className="border border-black rounded-2xl bg-blue-300 w-8 pl-1 -mb-1 ">
             {productCount}
           </span>
-          <BsCart4 className="text-3xl" />
+          <Link to="/CartPage">
+            <BsCart4 className="text-3xl" />
+          </Link>
         </div>
       </div>
     </div>

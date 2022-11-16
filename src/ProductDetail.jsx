@@ -8,6 +8,7 @@ import {
 } from "react-icons/bs";
 import { RiArrowGoBackFill } from "react-icons/ri";
 import NotFoundPage from "./NotFoundPage";
+import Button from "./Button";
 function ProductDetail({ onAddToCart }) {
   const params = useParams();
   const id = +params.id;
@@ -24,6 +25,8 @@ function ProductDetail({ onAddToCart }) {
           //   console.log("data is", data);
           setProductData(data);
           setLoading(false);
+          setCount(1);
+          setCartInfo(0);
         })
         .catch(function () {
           setLoading(false);
@@ -79,12 +82,7 @@ function ProductDetail({ onAddToCart }) {
               onChange={changeCount}
               className="border border-black rounded-md w-10"
             />
-            <button
-              className="border border-black bg-red-300 rounded-md px-2 py-1 mt-2 "
-              onClick={changeCart}
-            >
-              Add To Cart
-            </button>
+            <Button onClick={changeCart}>Add To Cart</Button>
             <span className="block">{cartInfo} items added</span>
           </div>
         </div>

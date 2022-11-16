@@ -12,7 +12,7 @@ function ProductPageApp() {
     const promise = getProductList();
     // console.log("product aa gya", getProductList);
     promise.then(function (products) {
-      // console.log(products);
+      console.log(products);
       setProductList(products);
       setLoading(false);
     });
@@ -71,6 +71,7 @@ function ProductPageApp() {
         </select>
       </div>
       {/* <ProductPage products={data} /> */}
+      {/* data.length is used because if there is not product of id=101 then show <div>Not Found</div> */}
       {data.length > 0 && <ProductPage products={data} />}
       {data.length == 0 && <div>Not Found</div>}
     </div>
