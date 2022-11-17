@@ -26,6 +26,6 @@ export function getProductList(sortBy,query,page,sortType){
     return axios.get("https://myeasykart.codeyogi.io/products",{
        params
     }).then(function(response){
-        return response.data.data;
+        return response.data;
     });
 }

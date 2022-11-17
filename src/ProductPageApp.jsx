@@ -2,14 +2,23 @@ import React, { useEffect, useState } from "react";
 import { getProductList } from "./Api";
 import ProductPage from "./ProductPage";
 import Loading from "./Loading";
-import Button from "./Button";
+import { range } from "lodash";
+import { Link, useSearchParams } from "react-router-dom";
 
 function ProductPageApp() {
-  const [productList, setProductList] = useState([]);
-  const [query, setQuery] = useState("");
-  const [sort, setSort] = useState("default");
+  const [productData, setProductData] = useState({});
+  // const [query, setQuery] = useState("");
+  // const [sort, setSort] = useState("default");
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const params = Object.fromEntries([...searchParams]);
+  let { query, sort, page } = params;
+  query = query || "";
+  sort = sort || "default";
+  page = +page || 1;
+
   useEffect(
     function () {
       let sortBy;
@@ -25,9 +34,9 @@ function ProductPageApp() {
       }
 
       const promise = getProductList(sortBy, query, page, sortType);
-      promise.then(function (products) {
-        console.log(products);
-        setProductList(products);
+      promise.then(function (body) {
+        console.log(body);
+        setProductData(body);
         setLoading(false);
       });
     },
@@ -35,12 +44,12 @@ function ProductPageApp() {
   );
 
   function changeQuery(event) {
-    setQuery(event.target.value);
+    setSearchParams({ ...params, query: event.target.value, page: 1 });
   }
 
   function changeSort(event) {
     // console.log(event.target.value);
-    setSort(event.target.value);
+    setSearchParams({ ...params, sort: event.target.value });
   }
 
   if (loading) {
@@ -53,7 +62,7 @@ function ProductPageApp() {
 
   return (
     <div>
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center">
         <input
           value={query}
           onChange={changeQuery}
@@ -73,17 +82,31 @@ function ProductPageApp() {
       </div>
       {/* <ProductPage products={data} /> */}
       {/* data.length is used because if there is not product of id=101 then show <div>Not Found</div> */}
-      {productList.length > 0 && <ProductPage products={productList} />}
-      {productList.length == 0 && (
+      {productData.data.length > 0 && (
+        <ProductPage products={productData.data} />
+      )}
+      {productData.data.length == 0 && (
         <div className="border border-black bg-red-400 text-white text-4xl h-96 w-96">
           No Items To Display
         </div>
       )}
-      <Button onClick={() => setPage(1)}>1</Button>
-      <Button onClick={() => setPage(2)}>2</Button>
-      <Button onClick={() => setPage(3)}>3</Button>
-      <Button onClick={() => setPage(4)}>4</Button>
-      <Button onClick={() => setPage(5)}>5</Button>
+      <div className="mt-4 bg-yellow-300 p-2">
+        {/* {[...Array(productData.meta.last_page).keys()].map((item) => ( */}
+        {range(1, productData.meta.last_page + 1).map((pageNumber) => (
+          // <Button key={item} onClick={() => setPage(item)}>
+          <Link
+            key={pageNumber}
+            to={"?" + new URLSearchParams({ ...params, page: pageNumber })}
+            className={
+              pageNumber === page
+                ? "bg-red-500 px-2 py-1 m-1"
+                : "bg-gray-300 px-2 py-1 m-1"
+            }
+          >
+            {pageNumber}
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
