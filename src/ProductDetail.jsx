@@ -56,19 +56,19 @@ function ProductDetail({ onAddToCart }) {
     onAddToCart(id, count);
   }
   return (
-    <div>
-      <div className="text-2xl m-2">
+    <div className=" max-w-4xl bg-yellow-200 px-7 py-4 ml-24 mt-4 ">
+      <div className="text-2xl m-2  ">
         <Link to="/">
           <RiArrowGoBackFill />
         </Link>
       </div>
-      <div className="flex justify-center">
-        <div className="flex justify-center mt-8 bg-white max-w-5xl h-80">
+      <div className="flex justify-center ">
+        <div className="flex justify-center bg-white">
           <img
-            className="p-2 w-96 h-80 aspect-square"
+            className="p-2 w-80 h-80 aspect-square"
             src={productData.thumbnail}
           />
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center px-8 w-96 m-2">
             <h2 className="text-gray-300">Brand: {productData.brand}</h2>
             <h1 className="text-cyan-500">Title: {productData.title}</h1>
             <h2 className="text-blue-700">Category: {productData.category}</h2>
@@ -80,14 +80,14 @@ function ProductDetail({ onAddToCart }) {
               type="number"
               value={count}
               onChange={changeCount}
-              className="border border-black rounded-md w-10"
+              className="border border-black rounded-md w-10 pl-2"
             />
             <Button onClick={changeCart}>Add To Cart</Button>
             <span className="block">{cartInfo} items added</span>
           </div>
         </div>
       </div>
-      <div className="flex max-w-2xl justify-between ml-80 text-2xl mt-2 ">
+      <div className="flex max-w-2xl justify-between ml-24 text-2xl mt-4 ">
         {id > 1 && (
           <Link to={"/products/" + (id - 1)}>
             <BsFillArrowLeftCircleFill />

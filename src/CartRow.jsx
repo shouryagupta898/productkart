@@ -20,7 +20,7 @@ function CartRow({ products, quantity, onQuantityChange, onRemove }) {
       <h3 className="grow text-red-500 pl-6">{products.title}</h3>
       <h4 className="w-20">Rs.{products.price}</h4>
       <input
-        className="w-8 rounded-md border border-black bg-gray-200 px-4 py-1"
+        className="w-10 rounded-md border border-black bg-gray-200 pl-1 "
         type="number"
         value={quantity}
         onChange={handleRowChange}

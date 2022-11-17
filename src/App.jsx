@@ -39,19 +39,21 @@ function App() {
     <div className="bg-gray-200 h-screen overflow-scroll">
       <Navbar productCount={totalCount} />
 
-      <Routes>
-        <Route index element={<ProductPageApp />} />
-        <Route
-          path="/products/:id"
-          element={<ProductDetail onAddToCart={changeAddToCart} />}
-        />
-        <Route path="*" element={<NotFoundPage />} />
-        <Route
-          path="/CartPage"
-          element={<CartPage cart={totalCartItem} updateCart={updateCart} />}
-        />
-        <Route path="/test" element={<Test />} />
-      </Routes>
+      <div className="bg-white p-4 mt-10 max-w-6xl mx-auto">
+        <Routes>
+          <Route index element={<ProductPageApp />} />
+          <Route
+            path="/products/:id"
+            element={<ProductDetail onAddToCart={changeAddToCart} />}
+          />
+          <Route path="*" element={<NotFoundPage />} />
+          <Route
+            path="/CartPage"
+            element={<CartPage cart={totalCartItem} updateCart={updateCart} />}
+          />
+          <Route path="/test" element={<Test />} />
+        </Routes>
+      </div>
     </div>
   );
 }

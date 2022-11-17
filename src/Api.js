@@ -6,8 +6,26 @@ export function getProductData(id){
     })
 }
 
-export function getProductList(){
-    return axios.get("https://dummyjson.com/products").then(function(response){
-        return response.data.products;
+export function getProductList(sortBy,query,page,sortType){
+
+    let params={};
+    if(sortBy){
+        params.sortBy=sortBy;
+    }
+    if(sortType){
+        params.sortType=sortType
+    }
+    if(query){
+        params.search=query;
+    }
+    if(page){
+        params.page=page;
+    }
+
+
+    return axios.get("https://myeasykart.codeyogi.io/products",{
+       params
+    }).then(function(response){
+        return response.data.data;
     });
 }
