@@ -1,10 +1,23 @@
 import axios from "axios";
 
 export function getProductData(id){
-    return axios.get("https://dummyjson.com/products/"+ id).then(function(response){
+    return axios.get("https://myeasykart.codeyogi.io/product/"+ id).then(function(response){
         return response.data;
     })
 }
+
+export function getProductsByIds(ids){
+    const commaSeparatedIds=ids.join()
+   return axios.get("https://myeasykart.codeyogi.io/products/bulk",{
+    params:{
+   ids:commaSeparatedIds,
+},
+})
+.then(function(response){
+    return response.data;
+});
+}
+
 
 export function getProductList(sortBy,query,page,sortType){
 

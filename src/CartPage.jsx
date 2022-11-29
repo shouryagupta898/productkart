@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { RiArrowGoBackFill } from "react-icons/ri";
-import { getProductData } from "./Api";
+import { getProductData, getProductsByIds } from "./Api";
 import Loading from "./Loading";
 import CartList from "./CartList";
 
@@ -13,11 +13,15 @@ function CartPage({ cart, updateCart }) {
     function () {
       setLoading(true);
       const productCartId = Object.keys(cart);
-      const cartProduct = productCartId.map(function (id) {
-        return getProductData(id);
-      });
+      // const cartProduct = productCartId.map(function (id) {
+      //   return getProductData(id);
+      // });
 
-      Promise.all(cartProduct).then(function (data) {
+      // Promise.all(cartProduct).then(function (data) {
+      //   setProduct(data);
+      //   setLoading(false);
+      // });
+      getProductsByIds(productCartId).then(function (data) {
         setProduct(data);
         setLoading(false);
       });

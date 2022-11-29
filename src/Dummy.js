@@ -1,6 +1,4 @@
 export const dummyProducts=[
-    
-        
             {
                 "id": 1,
                 "title": "iPhone 9",
@@ -53,7 +51,4 @@ export const dummyProducts=[
                     "https://dummyjson.com/image/i/products/3/1.jpg"
                 ]
             },
-            
-       
-    
 ]
