@@ -1,7 +1,7 @@
 import React from "react";
 import FormikHOC from "./FormikHOC";
 
-function FancyInput({ label, id, touched, error, className, ...rest }) {
+function FancyInput({ label, id, name, touched, error, className, ...rest }) {
   //   console.log("touched is ", touched, "error is ", error);
   let borderClass = " border-yellow-400 focus:border-blue-400 ";
   if (touched && error) {
@@ -14,6 +14,7 @@ function FancyInput({ label, id, touched, error, className, ...rest }) {
       </label>
       <input
         id={id}
+        name={name}
         {...rest}
         className={
           " px-4 py-1 border-y-4 border-gray-900 rounded-md " +

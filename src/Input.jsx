@@ -1,9 +1,10 @@
 import React from "react";
 import FormikHOC from "./FormikHOC";
 
-function Input({ label, id, touched, error, className, ...rest }) {
+function Input({ label, id, touched, error, className, name, ...rest }) {
   // console.log("touched is ", touched, "error is ", error);
   let borderClass = " border-black focus:border-blue-400 ";
+
   if (touched && error) {
     borderClass = " border-red-500 ";
   }
@@ -14,6 +15,7 @@ function Input({ label, id, touched, error, className, ...rest }) {
       </label>
       <input
         id={id}
+        name={name}
         {...rest}
         className={
           " px-4 py-1 border border-gray-900 rounded-md  " +

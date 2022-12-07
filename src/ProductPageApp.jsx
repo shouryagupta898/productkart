@@ -3,9 +3,9 @@ import { getProductList } from "./Api";
 import ProductPage from "./ProductPage";
 import Loading from "./Loading";
 import { range } from "lodash";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, Navigate, useSearchParams } from "react-router-dom";
 
-function ProductPageApp() {
+function ProductPageApp({ user }) {
   const [productData, setProductData] = useState({});
   // const [query, setQuery] = useState("");
   // const [sort, setSort] = useState("default");
@@ -58,6 +58,10 @@ function ProductPageApp() {
         <Loading />
       </div>
     );
+  }
+
+  if (!user) {
+    return <Navigate to="/login" />;
   }
 
   return (
